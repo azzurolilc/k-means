@@ -1,17 +1,12 @@
-// Implements k-means clustering on Congress voting record.
-
 import org.apache.spark.mllib.clustering.{KMeans, KMeansModel}
 import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.mllib.linalg.Vector
 import org.apache.spark.rdd.RDD
 import java.io._
-    
-// Import trig functions
 import Math.{PI,cos,sin}
 
 def conv(latitudeDegrees:Double, longitudeDegrees:Double) = {
     val EARTH_RADIUS_MILES = 3959.0
-
     // Convert to radians
     val lat = PI * latitudeDegrees  / 180.0
     val lon = PI * longitudeDegrees / 180.0
@@ -48,10 +43,10 @@ val file = new File("input.txt")
 val bw = new BufferedWriter(new FileWriter(file))
     
 def run(num:Int,path:String)= {
-    val numIterations = 16
+    val numIterations = 20
     val parsedData = loadData(path)
     
-    for (numClusters <- 10 to 20){
+    for (numClusters <- 10 to 300){
         for (i<-0 to num){
             val model = createModel(parsedData, numClusters, numIterations)
             val WSSSE = getModelError(model,parsedData)
@@ -63,7 +58,7 @@ def run(num:Int,path:String)= {
 
 // FileWriter
 
-run(3,"data.txt")
+run(5,"data.txt")
 bw.close()
 
     
