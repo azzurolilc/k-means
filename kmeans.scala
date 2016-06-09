@@ -48,10 +48,10 @@ def getModelError(model:KMeansModel,parsedData:RDD[Vector]) = {
 def run(path:String) = {
     val numIterations = 20
     val parsedData = loadData(path)
-    var fileName ="input.txt"
+    var fileName ="input5.txt"
     var file = new File(fileName)
     var bw = new BufferedWriter(new FileWriter(file))
-    for (numClusters <- 10 to 2000){
+    for (numClusters <- 250 to 500){
         
         if(numClusters%50==0){
             bw.close()
@@ -66,13 +66,15 @@ def run(path:String) = {
             val WSSSE = getModelError(model,parsedData)
             bw.write(numClusters+","+ WSSSE)
         }
-        println(numClusters)
+        //println(numClusters)
     }
 }
 
 // FileWriter
 
 run("data.csv")
+
+//
 
 
     
